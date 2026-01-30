@@ -1,5 +1,24 @@
+interface TimelineEvent {
+  description: string;
+  timestamp: string;
+}
+
+interface ReportAnalysis {
+  priority?: string;
+  department?: string;
+}
+
+interface Report {
+  reportId: string;
+  status: string;
+  incidentType: string;
+  timestamp: string;
+  analysis?: ReportAnalysis;
+  timeline?: TimelineEvent[];
+}
+
 interface ReportStatusProps {
-  report: any;
+  report: Report;
 }
 
 export function ReportStatus({ report }: ReportStatusProps) {
@@ -18,7 +37,6 @@ export function ReportStatus({ report }: ReportStatusProps) {
 
   return (
     <div className="rounded-xl bg-zinc-900/50 border border-zinc-800/50 p-6 space-y-6">
-      {/* Status Header */}
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm text-zinc-400">Report Status</p>
@@ -32,7 +50,6 @@ export function ReportStatus({ report }: ReportStatusProps) {
         </div>
       </div>
 
-      {/* Report Details */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <p className="text-sm text-zinc-400">Incident Type</p>
@@ -56,11 +73,10 @@ export function ReportStatus({ report }: ReportStatusProps) {
         </div>
       </div>
 
-      {/* Timeline */}
       <div>
         <p className="text-sm font-medium text-white mb-4">Timeline</p>
         <div className="space-y-4">
-          {report.timeline?.map((event: any, index: number) => (
+          {report.timeline?.map((event: TimelineEvent, index: number) => (
             <div key={index} className="flex gap-4">
               <div className="flex-none">
                 <div className="h-2 w-2 mt-2 rounded-full bg-sky-500" />
